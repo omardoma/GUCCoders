@@ -1,0 +1,172 @@
+<%- include('partials/header') %>
+
+	<title>GUC-Coders</title>
+	<div class="container">
+		<img class="img-responsive center-block" style="padding-right: 10px" src="/images/GUC.png" width="300" height="150" />
+		<br>
+		<h1 class="text-center">Portfolios</h1>
+		<% if(students.length > 0) { %>
+
+			<ul class="pagination">
+				<p> Sort: </p>
+				<% if(locals.alpha){%>
+					<li class="active">
+						<a href="?">
+						Alphabetical
+					</a>
+					</li>
+					<%}%>
+						<% if(!locals.alpha){%>
+							<li>
+								<a href="?">
+						Alphabetical
+					</a>
+							</li>
+							<%}%>
+								<% if(locals.projects){%>
+									<li class="active">
+										<a href="?sort=projects">
+						Projects Number
+					</a>
+									</li>
+									<%}%>
+										<% if(!locals.projects){%>
+											<li>
+												<a href="?sort=projects">
+						Projects Number
+					</a>
+											</li>
+											<%}%>
+			</ul>
+			<%}%>
+				<div class="row">
+					<% for(var i= max-12; i<students.length && i< max; i++){%>
+						<div class="col-sm-4">
+							<div class="card-container manual-flip">
+								<div class="card">
+									<div class="front">
+										<div class="cover" style="background-color: #18bc9c">
+										</div>
+										<div class="user">
+											<img class="image-wrapper-card img-circle" src="data:<%=students[i].profilePicture.contentType%>;base64,<%=students[i].profilePicture.photo%>"
+											/>
+										</div>
+										<div class="content">
+											<div class="main">
+												<h3 class="name">
+													<%= students[i].name %>
+												</h3>
+												<p class="profession">Bio</p>
+												<p class="text-center resize">
+													<%=students[i].description%>
+												</p>
+											</div>
+
+											<div class="footer1">
+												<button class="btn btn-simple" onclick="rotateCard(this)">
+                                    <i class="fa fa-mail-forward"></i> View Summary
+                                </button>
+											</div>
+										</div>
+									</div>
+									<!-- end front panel -->
+									<div class="back">
+										<div class="header">
+											<h5 class="motto">"If I were you, I would hire me!"</h5>
+										</div>
+										<div class="content">
+											<div class="main">
+												<h4 class="text-center">Portfolio Summary</h4><br>
+												<p class="text-center">
+													<%= students[i].projects[0].title%>: <a href="/api/students/<%=students[i].username%>/projects/<%= students[i].projects[0]._id%>" class="card-link">View Project</a><br>
+														<% if(students[i].projects.length > 1){%>
+															<p class="text-center">
+																<%= students[i].projects[1].title%>: <a href="/api/students/<%=students[i].username%>/projects/<%= students[i].projects[1]._id%>" class="card-link">View Project</a><br>
+																	<%}%>
+															</p>
+
+															<div class="stats-container">
+																<div class="stats">
+																	<h4>
+																		<%= students[i].projects.length%>
+																	</h4>
+																	<p class="text-center">
+																		Total Projects
+																	</p>
+																</div>
+															</div>
+											</div>
+											<div class="footer1">
+												<button class="btn btn-simple btn-simple-back" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+                                <i class="fa fa-reply"></i> Back
+                            </button>
+												<a href="/api/students/<%=students[i].username%>/1" class="btn btn-simple">View Portfolio</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% } %>
+				</div>
+				<% if(students.length === 0) { %>
+					<br><br><br><br>
+					<h2 class="text-center">No portfolios available right now, check in a little while.</h2>
+					<% } %>
+	</div>
+	<div class="text-center">
+		<ul class="pagination">
+			<% for(var i=0; i<students.length; i++ ){%>
+
+				<%if(
+						i+1 < (students.length/12)+1 && i+1===max/12){%>
+					<li class="active">
+						<%if(locals.projects){%>
+							<a href="/api/browsePortfolios/<%=i+1%>?sort=projects">
+								<%=i+1%>
+							</a>
+							<%}%>
+								<%if(!locals.projects){%>
+									<a href="/api/browsePortfolios/<%=i+1%>">
+										<%=i+1%>
+									</a>
+									<%}%>
+					</li>
+
+					<%}%>
+						<%if(i+1 < (students.length/12)+1 && !
+						(i+1 === max/12)){%>
+							<li>
+								<%if(locals.projects){%>
+									<a href="/api/browsePortfolios/<%=i+1%>?sort=projects">
+										<%=i+1%>
+									</a>
+									<%}%>
+										<%if(!locals.projects){%>
+											<a href="/api/browsePortfolios/<%=i+1%>">
+												<%=i+1%>
+											</a>
+											<%}%>
+							</li>
+							<%}%>
+								<%}%>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		$().ready(function () {
+			$('[rel="tooltip"]').tooltip();
+
+		});
+
+		function rotateCard(btn) {
+			var $card = $(btn).closest('.card-container');
+			console.log($card);
+			if ($card.hasClass('hover')) {
+				$card.removeClass('hover');
+			} else {
+				$card.addClass('hover');
+			}
+		}
+	</script>
+	<%- include('partials/footer') %>

@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+    <title>
+        <%=project.title%>
+    </title>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-default" href="/api/students/<%=student.username%>/1">Student's Portfolio</a>
+                <h1 class="page-header" style="margin-bottom: 25px;">
+                    <%=project.title%>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <% if(project.screenshot.photo){%>
+                    <img class="image-wrapper-big" src="data:image/<%=project.screenshot.contentType%>;base64,<%= project.screenshot.photo%>">
+                    <%} %>
+                        <% if(!project.screenshot.photo){%>
+                            <img class="image-wrapper-big" src="/images/error.png" alt="No Image Available">
+                            <%}%>
+            </div>
+
+            <div class="col-md-4" style="padding-left: 15px;">
+                <h3>Project Description</h3>
+                <p>
+                    <%= project.description%>
+                </p>
+                <% if(project.URL){%>
+                    <h3>Project Link</h3>
+                    <a class="btn btn-success" href="<%= project.URL%>
+">Visit Link</a>
+                    <%}%>
+            </div>
+        </div>
+
+        <% if(student.projects.length > 1){%>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header">Other Projects from
+                        <%=student.name%>
+                    </h3>
+                </div>
+
+                <% for(var i=0; i<student.projects.length && i<4; i++){%>
+                    <% if(student.projects[i]._id !== project._id){%>
+                        <div class="col-md-3">
+                            <a href="/api/students/<%=student.username%>/projects/<%=student.projects[i]._id%>">
+                                <% if(student.projects[i].screenshot.photo){%>
+                                    <img class="image-wrapper-projects portfolio-item" src="data:image/<%=student.projects[i].screenshot.contentType%>;base64,<%= student.projects[i].screenshot.photo%>">
+                                    <%} %>
+                                        <% if(!student.projects[i].screenshot.photo){%>
+                                            <img class="image-wrapper-projects portfolio-item" src="/images/error.png" alt="No Image Available">
+                                            <%}%>
+                            </a>
+                        </div>
+                        <%}%>
+
+                            <%}%>
+            </div>
+            <%}%>
+
+    </div>
+    <%- include('partials/footer') %>

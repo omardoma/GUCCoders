@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+    <link rel="stylesheet" type="text/css" href="/css/userImage.css">
+    <title>Create Portfolio</title>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3 style="margin-bottom:40px;">Add Project</h3>
+                <% if(locals.error) { %>
+                    <div class="alert alert-danger fade in">
+                        <%= error %>
+                    </div>
+                    <% } %>
+                        <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/api/createPortfolio/addProject">
+                            <div class="form-group text-center">
+                                <% if(locals.filePath) { %>
+                                    <img class="image-wrapper-medium" src=<%=filePath %> alt="Screenshot">
+                                    <% } %>
+                            </div>
+                            <div class="form-group">
+                                <label for="file">Add screenshot:</label>
+                                <input type="file" name="myfile" />
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-default" type="submit" value="Upload Image" name="submit">
+                            </div>
+                        </form>
+
+                        <form id="submitForm" method="POST" action="/api/createPortfolio/addProject/upload">
+                            <div class="form-group">
+                                <label for="InputTitle">Title</label>
+                                <input name="title" type="text" class="form-control" id="InputTitle" placeholder="Title" required maxlength="20">
+                                <p class="small text-right">Max 20 Characters.</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputLink">Link</label>
+                                <input name="URL" type="url" class="form-control" id="InputLink" placeholder="Link">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea name="description" class="form-control" id="description" placeholder="Description" rows="3" required maxlength="105"></textarea>
+                                <p class="small text-right">Max 105 Characters.</p>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success">Create Portfolio</button>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>

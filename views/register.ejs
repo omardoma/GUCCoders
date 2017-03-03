@@ -1,0 +1,55 @@
+﻿<%- include('partials/header') %>
+    <title>Register</title>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h2>Register</h2>
+                <% if(locals.error) { %>
+                    <div class="alert alert-danger fade in">
+                        <%= error %>
+                    </div>
+                    <% } %>
+                        <% if(locals.success) { %>
+                            <div class="alert alert-success fade in">
+                                <%= success %>
+                            </div>
+                            <% } %>
+                                <form action="/api/register" id="loginForm" method="post">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" placeholder="Username" id="username" value="<%=input.username%>" pattern="^[a-zA-Z0-9]+\s*$"
+                                            class="form-control" required title="Username cannot contain white space character in the beginning or the middle."
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input class="form-control" placeholder="Password" title="Password must contain at least 8 characters, including a digit and a special character."
+                                            type="password" required pattern="(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[a-z]).*$"
+                                            name="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+                                if(this.checkValidity()) form.confirm_password.pattern = this.value;" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm_password">Confirm Password</label>
+                                        <input placeholder="Confirm Password" title="Passwords don't match!" class="form-control" type="password" required name="confirm_password"
+                                            onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">GUC Email</label>
+                                        <input name="email" id="email" placeholder="username@student.guc.edu.eg" value="<%=input.email%>" class="form-control" type="email"
+                                            required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gucID">GUC ID</label>
+                                        <input title="A valid GUC ID is in the form of  XX-(3-5) Digits" name="gucID" id="gucID" placeholder="34-123" value="<%=input.gucID%>"
+                                            class="form-control" type="text" required pattern="\d{2}[\-]\d{3,5}" onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"
+                                        />
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button id="submit" type="submit" class="btn btn-success">Register</button>
+                                    </div>
+                                </form>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/rotating-card.css">
+    <link rel="stylesheet" type="text/css" href="/css/credits.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+                <a class="navbar-brand" style="padding-left: 15px;" href="/">GUC<span>-Coders</span></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/api/home">Home</a></li>
+                    <% if(locals.username){ %>
+                        <li><a href="/api/browsePortfolios/1">Browse Portfolios</a></li>
+                        <li><a href="/api/editPortfolio/1">My Portfolio</a></li>
+                        <li class="btn-trial"><a href="/api/logout">Log Out</a></li>
+                        <%} %>
+                            <% if(!locals.username){ %>
+                                <li><a href="/api/browsePortfolios/1">Browse Portfolios</a></li>
+                                <li><a href="/api/login">Log in</a></li>
+                                <li class="btn-trial"><a href="/api/register">Register</a></li>
+                                <%} %>
+                </ul>
+            </div>
+        </div>
+    </nav>

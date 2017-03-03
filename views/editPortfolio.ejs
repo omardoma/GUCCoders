@@ -1,0 +1,135 @@
+<%- include('partials/header') %>
+    <title>My Portfolio</title>
+    <link rel="stylesheet" type="text/css" href="/css/userImage.css">
+    <link rel="stylesheet" type="text/css" href="/css/materialCard.css">
+
+    <h1 class="text-center"> My Portfolio</h1>
+    <div class="container">
+        <div class="jumbotron text-center" style="background-color: white">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <img class="image-wrapper img-circle" src="data:<%=student.profilePicture.contentType%>;base64,<%=student.profilePicture.photo%>"
+                    />
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="card-title text-center">
+                    <%=student.name%>
+                </h2>
+                <p class="text-center resize">
+                    <%=student.gender%>
+                </p>
+                <p class="text-center resize">
+                    Major:
+                    <%=student.major%>
+                </p>
+                <p class="text-center resize">
+                    Email:
+                    <%=student.email%>
+                </p>
+                <p class="profession">Bio</p>
+                <p class="text-center resize">
+                    <%=student.description%>
+                </p>
+            </div>
+        </div>
+        <div class="text-center">
+            <ul class="pagination">
+                <% for(var i=0; i<projects.length; i++ ){%>
+                    <%if(
+						i+1 < (projects.length/4)+1 && i+1===max/4){%>
+                        <li class="active">
+                            <a href="/api/editPortfolio/<%=i+1%>">
+                                <%=i+1%>
+                            </a>
+                        </li>
+                        <%}%>
+                            <%if(i+1 < (projects.length/4)+1 && !
+						(i+1 === max/4)){%>
+                                <li>
+                                    <a href="/api/editPortfolio/<%=i+1%>">
+                                        <%=i+1%>
+                                    </a>
+                                    <%}%>
+                                </li>
+                                <%}%>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <% for(var i= max-4; i<projects.length && i< max; i++){%>
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="text-right" style="padding-top: 5px; padding-right: 5px;">
+                                <form method="POST" action="/api/editPortfolio/<%=max/4%>/delete/<%=projects[i]._id%>">
+                                    <button class="kc_fab_main_btn" type="submit">X</button>
+                                </form>
+                            </div>
+                            <div class="card-content">
+                                <h2 class="card-title text-center resize">
+                                    <%= projects[i].title %>
+                                </h2>
+                                <p class="text-center">
+                                    Description
+                                </p><br>
+                                <p class="resize">
+                                    <%= projects[i].description %>
+                                </p>
+                            </div>
+
+                            <div class="card-action text-center">
+                                <a href="/api/students/<%=student.username%>/projects/<%=projects[i]._id%>" class="card-link">View Project</a>                                </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+            <br>
+            <div class="col-md-4">
+                <% if(locals.error) { %>
+                    <div class="alert alert-danger fade in">
+                        <%= error %>
+                    </div>
+                    <% } %>
+                        <% if(locals.success) { %>
+                            <div class="alert alert-success fade in">
+                                <%= success %>
+                            </div>
+                            <% } %>
+                                <h3 class="text-center" style="margin-bottom:40px;">Add New Project</h3>
+                                <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/api/editPortfolio/<%=max/4%>">
+                                    <div class="form-group text-center">
+                                        <% if(locals.filePath) { %>
+                                            <img class="image-wrapper-medium" alt="screenshot" src=<%=filePath%>>
+                                            <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file">Add screenshot:</label>
+                                        <input type="file" name="myfile" />
+                                    </div>
+                                    <span class="hint">Supported files: jpg, jpeg, png.</span>
+                                    <br/>
+                                    <input class="btn btn-default" type="submit" value="Upload Image" name="submit"><br/><br/>
+                                </form>
+                                <form id="submitForm" method="POST" action="/api/editPortfolio/<%= max/4%>/upload">
+                                    <div class="form-group">
+                                        <label for="InputTitle">Title</label>
+                                        <input name="title" type="text" class="form-control" id="InputTitle" placeholder="Title" required maxlength="20">
+                                        <p class="small text-right">Max 20 Characters.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputLink">Link</label>
+                                        <input name="URL" type="url" class="form-control" id="InputLink" placeholder="Link">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea name="description" class="form-control" id="description" placeholder="Description" rows="3" required maxlength="105"></textarea>
+                                        <p class="small text-right">Max 105 Characters.</p>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button type="submit" class="btn btn-success">Add Project</button>
+                                    </div>
+                                </form>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>

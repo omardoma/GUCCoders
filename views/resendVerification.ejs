@@ -1,0 +1,31 @@
+﻿<%- include('partials/header') %>
+    <title>Resend Verification Email</title>
+
+    <div class="container" style="padding-top: 30px;">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <h2>Resend Verification Email</h2>
+                <% if(locals.error) { %>
+                    <div class="alert alert-danger fade in">
+                        <%= error %>
+                    </div>
+                    <% } %>
+                        <% if(locals.success) { %>
+                            <div class="alert alert-success fade in">
+                                <%= success %>
+                            </div>
+                            <% } %>
+                                <form method="post" action="/api/resendVerification">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" value="<%=email%>" placeholder="username@student.guc.edu.eg" id="email" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button type="submit" class="btn btn-success">Send</button>
+                                        <a class="btn btn-link" href="/api/login">Login</a>
+                                    </div>
+                                </form>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>

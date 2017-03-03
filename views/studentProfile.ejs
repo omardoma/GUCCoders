@@ -1,0 +1,88 @@
+<%- include('partials/header') %>
+	<link rel="stylesheet" type="text/css" href="/css/userImage.css">
+	<link rel="stylesheet" type="text/css" href="/css/materialCard.css">
+	<title>
+		<%=student.name%> Portfolio</title>
+
+	<div class="container">
+		<a class="btn btn-default" href="/api/browsePortfolios/1">All Portfolios</a><br><br>
+		<div class="jumbotron text-center" style="background-color: white">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<img class="image-wrapper img-circle" src="data:<%=student.profilePicture.contentType%>;base64,<%=student.profilePicture.photo%>"
+					/>
+				</div>
+			</div>
+			<div class="card-content">
+				<h2 class="card-title text-center">
+					<%=student.name%>
+				</h2>
+				<p class="text-center resize">
+					<%=student.gender%>
+				</p>
+				<p class="text-center resize">
+					Major:
+					<%=student.major%>
+				</p>
+				<p class="text-center resize">
+					Email:
+					<%=student.email%>
+				</p>
+				<p class="profession">Bio</p>
+				<p class="text-center resize">
+					<%=student.description%>
+				</p>
+			</div>
+		</div>
+
+		<div class="col-md-12">
+			<h1 class="text-center">Projects</h1><br>
+			<div class="row">
+				<% for(var i= max-12; i<projects.length && i< max; i++){%>
+					<div class="col-md-3">
+						<div class="card">
+							<div class="card-content">
+								<h1 class="text-center resize">
+									<%=projects[i].title%>
+								</h1>
+								<p class="text-center">
+									Description
+								</p><br>
+								<p class="resize">
+									<%= projects[i].description %>
+								</p>
+							</div>
+							<div class="card-action text-center">
+								<a href="/api/students/<%=student.username%>/projects/<%=projects[i]._id%>" class="card-link">View Project</a>
+							</div>
+						</div>
+					</div>
+					<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<ul class="pagination">
+			<% for(var i=0; i<projects.length; i++){%>
+
+				<%if(
+						i+1 < (projects.length/12)+1 && i+1 === max/12){%>
+					<li class="active">
+						<a href="/api/students/<%=student.username%>/<%=i+1%>">
+							<%=i+1%>
+						</a>
+					</li>
+
+					<%}%>
+						<%if(i+1< (projects.length/12)+1 && !
+						(i+1 === max/12)){%>
+							<li>
+								<a href="/api/students/<%=student.username%>/<%=i+1%>">
+									<%=i+1%>
+								</a>
+							</li>
+							<%}%>
+								<%}%>
+		</ul>
+	</div>
+	<%- include('partials/footer') %>

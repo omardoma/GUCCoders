@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+    <link rel="stylesheet" type="text/css" href="/css/userImage.css">
+    <title>Create Portfolio</title>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1 class="text-center"> Create Portfolio</h1>
+                <% if(locals.error) { %>
+                    <div class="alert alert-danger fade in">
+                        <%= error %>
+                    </div>
+                    <% } %>
+                        <% if(locals.success) { %>
+                            <div class="alert alert-success fade in">
+                                <%= success %>
+                            </div>
+                            <% } %>
+                                <form id="uploadForm" enctype="multipart/form-data" action="/api/createPortfolio" method="post">
+                                    <div class="form-group text-center">
+                                        <% if(locals.filePath) { %>
+                                            <img class="image-wrapper img-circle" src=<%=filePath %> alt="Profile Picture">
+                                            <% } %>
+                                                <% if(!locals.filePath) { %>
+                                                    <img class="image-wrapper - img-circle" src="/images/user.png" class="img-circle" alt="Profile Picture">
+                                                    <% } %>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file">Profile Picture</label>
+                                        <input type="file" name="myfile" /> <span class="hint">Supported files: jpg, jpeg, png.</span>
+                                        <br><br>
+                                        <input class="btn btn-default" type="submit" value="Upload Image" name="submit"><br/><br/>
+                                    </div>
+                                </form>
+                                <form id="createPortfolioForm" action="/api/createPortfolio/upload" method="post">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name" required maxlength="30" />
+                                        <p class="small text-right">Max 30 Characters.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <label class="radio-inline" style="margin-left: 60px"><input type="radio" name="gender" value="Male">Male</label>
+                                        <label class="radio-inline"><input type="radio" name="gender" value="Female" required>Female</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="major">Major</label>
+                                        <label class="radio-inline" style="margin-left: 70px"><input type="radio" name="major" value="MET">MET</label>
+                                        <label class="radio-inline"><input type="radio" name="major" value="BI" required>BI</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Bio</label>
+                                        <textarea name="description" placeholder="Description" id="description" class="form-control" rows="3" maxlength="105" required></textarea>
+                                        <p class="small text-right">Max 105 Characters.</p>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <button type="submit" class="btn btn-success">Continue</button>
+                                    </div>
+                                </form>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>
