@@ -3,3 +3,6 @@ SE Mini Project, A portfolio app for showcasing the projects of the MET and BI f
 Omar Doma
 34-12601
 T-14
+
+
+Deployment Link: www.guccoders.com

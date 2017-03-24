@@ -17,7 +17,7 @@ var myHasher = function (password, tempUserData, insertTempUser, callback) {
 
 nev.configure({
     persistentUserModel: Student,
-    verificationURL: 'http://localhost:8080/api/verifyAccount/${URL}',
+    verificationURL: 'http://guccoders.com/api/verifyAccount/${URL}',
     transportOptions: {
         service: 'Gmail',
         auth: {
@@ -448,7 +448,7 @@ module.exports.resetPassword = function (req, res) {
                 });
             }
             var token = randtoken.generate(48);
-            var content = "<p>A reset password request has been made, please reset the password to your account by clicking this <a href=\"http://localhost:8080/api/login/resetPassword/" + token + "\">Link</a>.<br>If you are unable to do so, copy and paste the following link into your browser:<br><br>http://localhost:8080/api/login/resetPassword/" + token + "<br><br>If you did not do the request then ignore this email and your password will remain unchanged.</p>";
+            var content = "<p>A reset password request has been made, please reset the password to your account by clicking this <a href=\"http://guccoders.com/api/login/resetPassword/" + token + "\">Link</a>.<br>If you are unable to do so, copy and paste the following link into your browser:<br><br>http://guccoders.com/api/login/resetPassword/" + token + "<br><br>If you did not do the request then ignore this email and your password will remain unchanged.</p>";
             Student.findOne({
                 email: email
             }, function (err, student) {
