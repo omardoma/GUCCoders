@@ -8,6 +8,15 @@ T-14
 
 Deployment Link: www.guccoders.com
 
-An Express.js microservice for Sockets functionality of a Whatsapp clone.
+## How to run?
 
+1. Clone the repo
+2. `npm i`
+3. 
+    * Development: 
+        1. `npm start`
+    * Production:
+        1. `npm i -g pm2`
+        2. `NODE_ENV=production pm2 start ./bin/www`
+    
 &#9400; Omar Doma 2017
